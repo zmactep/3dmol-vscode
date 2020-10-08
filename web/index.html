@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>3DMol View</title>
+	<style>
+		#container {
+			width: 100%;
+			height: 600px;
+			position: relative;
+		}
+	</style>
+</head>
+<body>
+	<div id="container"></div>
+	<script src="${js3dmolUri}"></script>
+	<script>
+		$(function(){
+			var style = getComputedStyle(document.body);
+			var bgColor = style.getPropertyValue('--vscode-panel-background');
+
+			var element = document.getElementById("container");
+			var viewer = $3Dmol.createViewer(element, { backgroundColor: bgColor });
+
+			jQuery.ajax("${pdbUri}", {
+				success: function(data) {
+					viewer.addModel(data, "pdb");
+					viewer.setStyle({}, {cartoon: {color: "spectrum"}});
+					viewer.zoomTo();
+					viewer.render();
+					viewer.zoom(1.2, 1000);
+				},
+				error: function(hdr, status, err) {
+					viewer.addSphere({ center: {x:0, y:0, z:0}, radius: 10.0, color: 'red' });
+					viewer.zoomTo();
+					viewer.render();
+					viewer.zoom(0.8, 2000);
+				}
+			});
+		});
+	</script>
+</body>
+</html>
