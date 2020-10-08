@@ -1,7 +1,8 @@
 {
 	"name": "3dmol-vscode",
+        "publisher": "zmactep",
 	"displayName": "3Dmol",
-	"description": "Visualization of biological structur",
+	"description": "Visualization of biological structures",
 	"version": "0.0.1",
 	"engines": {
 		"vscode": "^1.49.0"
